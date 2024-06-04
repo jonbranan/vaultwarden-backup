@@ -125,6 +125,24 @@ function send_mail_content() {
 }
 
 ########################################
+# Send health check start ping.
+# Arguments:
+#     None
+########################################
+function send_start_ping() {
+    if [[ -z "${PING_URL}" ]]; then
+        return
+    fi
+
+    wget "${PING_URL}/start" -T 15 -t 10 -O /dev/null -q
+    if [[ $? != 0 ]]; then
+        color red "start ping failed"
+    else
+        color blue "start ping delivered"
+    fi
+}
+
+########################################
 # Send health check ping.
 # Arguments:
 #     None
@@ -136,9 +154,9 @@ function send_ping() {
 
     wget "${PING_URL}" -T 15 -t 10 -O /dev/null -q
     if [[ $? != 0 ]]; then
-        color red "ping sending failed"
+        color red "ping failed"
     else
-        color blue "ping send was successfully"
+        color blue "ping delivered"
     fi
 }
 

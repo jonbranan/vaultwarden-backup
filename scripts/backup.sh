@@ -216,6 +216,7 @@ color blue "running the backup program at $(date +"%Y-%m-%d %H:%M:%S %Z")"
 init_env
 check_rclone_connection
 
+send_start_ping
 clear_dir
 backup_init
 backup
